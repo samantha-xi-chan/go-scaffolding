@@ -14,9 +14,9 @@ echo "\$BuildT: "     $BuildT     ;
 echo "\$GitBranch: "  $GitBranch  ;
 echo "\$GitCommit: "  $GitCommit  ;
 
-GOOS="darwin"; GOARCH="arm64"; APP_NAME="out-"$GOOS"-"$GOARCH; echo $APP_NAME
-CGO_ENABLED=0 GOOS=$GOOS  GOARCH=$GOARCH go build -o bin/$APP_NAME       -ldflags "-X main.Version=$Ver -X main.BuildTime=$BuildT -X main.GitBranch=$GitBranch -X main.GitCommit=$GitCommit"   cmd/version.go cmd/main.go ;
+GOOS="darwin"; GOARCH="arm64"; APP="app01"; APP_NAME=$APP"-"$GOOS"-"$GOARCH; echo $APP_NAME
+CGO_ENABLED=0 GOOS=$GOOS  GOARCH=$GOARCH go build -o bin/$APP_NAME       -ldflags "-X main.Version=$Ver -X main.BuildTime=$BuildT -X main.GitBranch=$GitBranch -X main.GitCommit=$GitCommit"   cmd/version.go cmd/app01.go ;
 
-GOOS="linux";  GOARCH="amd64"; APP_NAME="out-"$GOOS"-"$GOARCH; echo $APP_NAME
-CGO_ENABLED=0 GOOS=$GOOS  GOARCH=$GOARCH go build -o bin/$APP_NAME        -ldflags "-X main.Version=$Ver -X main.BuildTime=$BuildT -X main.GitBranch=$GitBranch -X main.GitCommit=$GitCommit"   cmd/version.go cmd/main.go ;
+GOOS="linux";  GOARCH="amd64"; APP="app01"; APP_NAME=$APP"-"$GOOS"-"$GOARCH; echo $APP_NAME
+CGO_ENABLED=0 GOOS=$GOOS  GOARCH=$GOARCH go build -o bin/$APP_NAME        -ldflags "-X main.Version=$Ver -X main.BuildTime=$BuildT -X main.GitBranch=$GitBranch -X main.GitCommit=$GitCommit"   cmd/version.go cmd/app01.go ;
 

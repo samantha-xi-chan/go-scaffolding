@@ -2,8 +2,8 @@
 
 .PHONY: all build run clean test
 
-BINARY_NAME=myapp
-MAIN_FILE=main.go
+BINARY_NAME=app01
+MAIN_FILE=app01.go
 
 build-t:
 	go build -o $(BINARY_NAME) $(MAIN_FILE)
