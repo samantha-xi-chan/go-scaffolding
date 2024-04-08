@@ -59,6 +59,11 @@ func main() {
 	if err != nil {
 		panic("failed to connect database")
 	}
+	if err := dbConn.Migrator().DropTable(
+		&model.User{},
+	); err != nil {
+		log.Fatalf("failed to DropTable: %v", err)
+	}
 	if err := dbConn.AutoMigrate(
 		&model.User{},
 	); err != nil {

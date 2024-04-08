@@ -4,7 +4,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"go-scaffolding/internal/app01/service"
 	"gorm.io/gorm"
-	"net/http"
 )
 
 type Handler struct {
@@ -20,21 +19,12 @@ func NewHandler(db *gorm.DB) *Handler {
 }
 
 func (h *Handler) RegisterRoutes(r *gin.Engine) {
-	r.GET("/user/:id", h.getUserByID)
-}
 
-func (h *Handler) getUserByID(c *gin.Context) {
-	idStr := c.Param("id")
-
-	user, err := h.userService.GetUserByID(idStr)
-	if err != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
-		return
+	// v1 user
+	userV1 := r.Group("api/v1/user")
+	{
+		userV1.POST("", h.postUser)
+		userV1.GET("/:id", h.getUserByID)
+		userV1.PUT("/:id", h.putUserByID)
 	}
-
-	c.JSON(http.StatusOK, gin.H{
-		"id":       user.Id,
-		"username": user.Username,
-		"email":    user.Email,
-	})
 }
