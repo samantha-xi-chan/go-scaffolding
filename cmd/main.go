@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"go-scaffolding/util/util_etcd"
 	_ "go.uber.org/automaxprocs"
 	"log"
 	"runtime"
@@ -24,4 +25,6 @@ func init() {
 func main() {
 	log.Println("main start")
 	defer log.Println("main end")
+
+	util_etcd.Test()
 }
