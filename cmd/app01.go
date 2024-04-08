@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"go-scaffolding/config"
 	"go-scaffolding/internal/app01/handler"
 	"go-scaffolding/internal/app01/model"
 	"go-scaffolding/pkg/db"
@@ -53,12 +54,14 @@ func main() {
 	//	time.Sleep(time.Second)
 	//}
 
-	// ....
-	dbConn, err := db.Connect("root:gznPzkTJ8xEgGZO6@tcp(192.168.31.45:30306)/biz?charset=utf8mb4&parseTime=True&loc=Local")
+	// db init
+	dbConn, err := db.Connect(config.MySQLDSN)
 	if err != nil {
 		panic("failed to connect database")
 	}
-	if err := dbConn.AutoMigrate(&model.User{}); err != nil {
+	if err := dbConn.AutoMigrate(
+		&model.User{},
+	); err != nil {
 		log.Fatalf("failed to auto migrate database: %v", err)
 	}
 
@@ -67,5 +70,6 @@ func main() {
 	h.RegisterRoutes(r)
 	r.Run(":8080")
 
+	log.Println("waiting select {}")
 	select {}
 }
