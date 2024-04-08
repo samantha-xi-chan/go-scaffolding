@@ -5,13 +5,8 @@
 BINARY_NAME=myapp
 MAIN_FILE=main.go
 
-all: build
-
-build:
+build-t:
 	go build -o $(BINARY_NAME) $(MAIN_FILE)
-
-run:
-	go run $(MAIN_FILE)
 
 clean:
 	go clean
@@ -20,6 +15,10 @@ clean:
 test:
 	go test ./...
 
-
-release-main:
+build-main:
 	@sh script/build.sh
+
+run: build-main
+	cd . && ./out-darwin-arm64
+
+all: run
