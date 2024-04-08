@@ -1,11 +1,14 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"go-scaffolding/util/util_etcd"
+	"go-scaffolding/util/util_etcd_v2"
 	_ "go.uber.org/automaxprocs"
 	"log"
 	"runtime"
+	"time"
 )
 
 func printVersionInfo() string {
@@ -23,8 +26,31 @@ func init() {
 }
 
 func main() {
+	ctx := context.TODO()
+	log.Printf("ctx: %#v", ctx)
+
 	log.Println("main start")
 	defer log.Println("main end")
 
-	util_etcd.Test()
+	// test util_etcd
+	go func() {
+		util_etcd.StartReadTest(ctx)
+	}()
+
+	time.Sleep(time.Second)
+
+	go func() {
+		for true {
+			util_etcd.WriteTest(ctx)
+			time.Sleep(time.Second)
+		}
+	}()
+
+	// test util_etcd_v2
+	for true {
+		util_etcd_v2.Test()
+		time.Sleep(time.Second)
+	}
+
+	select {}
 }

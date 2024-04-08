@@ -19,6 +19,6 @@ build-main:
 	@sh script/build.sh
 
 run: build-main
-	cd . && ./out-darwin-arm64
+	cd bin && ./out-darwin-arm64
 
 all: run
