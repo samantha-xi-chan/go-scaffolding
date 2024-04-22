@@ -57,7 +57,7 @@ func main() {
 	// db init
 	dbConn, err := db.Connect(config.MySQLDSN)
 	if err != nil {
-		panic("failed to connect database")
+		log.Fatalf("db.Connect(config.MySQLDSN): %s", err)
 	}
 	if err := dbConn.Migrator().DropTable(
 		&model.User{},
